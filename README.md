@@ -15,7 +15,7 @@ Feel free to edit or improve my code as long you keep the credits.
   -**true** will extract all ccts present in **cct_path** path.<br>
   -**false** will request you to select an cct file to extract.<br>
 
-## This tool uses the extras below:
+## This tool uses the xtras below:
 * Core xtras from Director MX 2004
 * FileIO
 * FileXtra4 by Kent Kersten > http://www.kblab.net/xtras
