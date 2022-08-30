@@ -10,6 +10,11 @@ Feel free to edit or improve my code as long you keep the credits.
 * Text
 * Script (Only unprotected files)
 
+## Settings
+* single_file = **true|false**<br>
+  -**true** will extract all ccts present in **cct_path** path.<br>
+  -**false** will request you to select an cct file to extract.<br>
+
 ## This tool uses the extras below:
 * Core xtras from Director MX 2004
 * FileIO
