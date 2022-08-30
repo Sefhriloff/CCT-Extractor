@@ -1,4 +1,4 @@
-global saveFolder, settings
+global saveFolder, settings, regPoints
 
 on enterFrame
   if not loadSettings() then return
@@ -29,24 +29,37 @@ on processFile(tPath)
     
     saveFolder = getOutputPath(tPath)
     newFolder(saveFolder)
-    generateCredits
+    generateCredits()
+    regPoints = []
     
     repeat with tMem in castLib(2).member
       case tMem.type of  
         #field:
           handleField(tMem)
+        #text:
+          handleField(tMem)
         #bitmap:
           handleImage(tMem)
         #script:
           handleScript(tMem)
+        #sound:
+          handleSound(tMem)
         otherwise:
           -- Not Supported
       end case
     end repeat
     
+    if regPoints.count <> 0 then saveText("regPoints.json", string(regPoints))
+    
   else
     alert("Invalid File.")
   end if
+end
+
+on handleSound(tMem)
+  mp3 = xtra("MP3Xtra").new(the moviePath & "xtras\lame_enc.dll")
+  mp3.mem2mp3(tMem, saveFolder & processName(tMem) & ".mp3", 128)
+  mp3 = 0
 end
 
 on handleScript(tMem)
@@ -54,7 +67,10 @@ on handleScript(tMem)
 end
 
 on handleImage(tMem)
-  saveImage(processName(tMem), tMem.image)
+  if tMem.palette = 0 then tMem.paletteRef = #systemWin
+  tName = processName(tMem)
+  regPoints.add([tName, tMem.regPoint[1],tMem.regPoint[2]])
+  saveImage(tName, tMem.image)
 end
 
 on handleField(tMem)
@@ -121,7 +137,7 @@ on parseSettings(tText)
 end
 
 on generateCredits
-  saveText("credits.txt", member("credits",1).text)
+  saveText("credits.txt",member("credits",1).text)
 end
 
 on replaceChunks(input, stringToFind, stringToInsert)
