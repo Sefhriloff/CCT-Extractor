@@ -16,7 +16,7 @@ Feel free to edit or improve my code as long you keep the credits.
   `true` will extract all ccts present in **cct_path** path.  
   `false` will request you to select an cct file to extract.  
 * cct_path or output_path = `D:\folder\`  
-  -`<here>` will be replaced by the program path. Ex:`<here>input\`  
+  `<here>` will be replaced by the program path. Ex:`<here>input\`  
 * sound_to_mp3 = `true|false`   
   `true` will extract as mp3 using the bitRate present in the **sound_mp3_bitrate** variable.  
   `false` will extract as wav (no quality loss).  
