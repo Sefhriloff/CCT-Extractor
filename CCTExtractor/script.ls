@@ -44,6 +44,8 @@ on processFile(tPath)
           handleScript(tMem)
         #sound:
           handleSound(tMem)
+        #flash:
+          handleFlash(tMem)
         otherwise:
           -- Not Supported
       end case
@@ -56,9 +58,17 @@ on processFile(tPath)
   end if
 end
 
+on handleFlash(tMem)
+  exportSWF(tMem, saveFolder & processName(tMem) & ".swf", value(getCnf(#swf_compressed)))
+end
+
 on handleSound(tMem)
   mp3 = xtra("MP3Xtra").new(the moviePath & "xtras\lame_enc.dll")
-  mp3.mem2mp3(tMem, saveFolder & processName(tMem) & ".mp3", 128)
+  if value(getCnf(#sound_to_mp3)) then
+    mp3.mem2mp3(tMem, saveFolder & processName(tMem) & ".mp3", value(getCnf(#sound_mp3_bitrate)))
+  else
+    mp3.mem2wav(tMem, saveFolder & processName(tMem) & ".wav")
+  end if
   mp3 = 0
 end
 
